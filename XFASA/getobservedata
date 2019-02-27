@@ -1,0 +1,11 @@
+# This script gets the data between two segments of tracking
+# file name should be passed as argument
+BEGIN { IGNORECASE=1; }
+{
+  if($1=="#segment") {
+    flname=$6;\
+#    print "track"$6;\
+    #print "    segment "toupper(flname)"\tfound. Creating file track"toupper(flname)" ...";
+  }else{print $0 >> "track"toupper(flname);}\
+}
+END { }

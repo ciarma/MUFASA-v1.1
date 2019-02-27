@@ -1,0 +1,23 @@
+option,-echo,-info,-warn;
+
+call, file="./XFASA/mubeam.madx";
+
+call, file="./XFASA/mpt03_pos45GeV_mu18GeV_raper10mm.seq";
+use, sequence=mt;
+
+! Beam pipe
+call, file="./XFASA/aperture.madx";
+
+system, "rm -f trackEND trackSTART";
+
+! beggining track
+ptc_create_universe;
+!ptc_setswitch, debuglevel=0; 
+ptc_create_layout,model=2,method=6,nst=10,resplit,even;
+call, file="muMADX.tmp";
+ptc_track, icase=6,turns=1,dump,onetable,file,element_by_element,
+maxaper={Rpipe,AngMax,Rpipe,AngMax,1,1},file,radiation;
+ptc_track_end;
+ptc_end;
+
+system, "awk -f ./XFASA/getobservedata trackone";

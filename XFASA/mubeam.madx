@@ -1,0 +1,2 @@
+E0     := 18;!22.500;![GeV]
+beam, PARTICLE=posmuon, ENERGY=E0;
